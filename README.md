@@ -2,8 +2,6 @@
 
 Build an app that allows the user to complete a series of quests. After all quests have been completed, or if the user dies, a final outcome is determined based on how they did on their quests.
 
-Overview
-
 ## Overview
 
 There are four main pages:
@@ -16,13 +14,13 @@ user chooses a response
 
 ## Quests Data
 
-The information about each quests should be specified via data. This is an array of object where each object describes a particular quest. Each quest object should have the same properties and specified information, though the values are different. Each object needs to have properties for:
+The information about each quest should be specified via data. This is an array of object where each object describes a particular quest. Each quest object should have the same properties and specified information, though the values are different. Each object needs to have properties for:
 
-1. Its `id`. Some up with a short string unique to that quest, like `monsters`, `dragons`, `treasure`.
+1. Its `id`. Come up with a short string unique to that quest, like `monsters`, `dragons`, `treasure`.
 1. Information to be displayed about the quest on the `quest.html` page. Could be things like title, description, image file to display, audio file to play.
 1. Choice list. The question object will need to have a property that describes the choices available to the user with which to respond. Each choice is itself an object. It needs properties for:
     1. Its `id`. Short string unique to that choice
-    1. Display information such as description, and what text to display if that choices is chosen
+    1. Display information such as description, and what text to display if that choice is chosen
     1. Information about how to modify the user object if that choice is made.
 
 An example quest data is provided below.
@@ -31,7 +29,7 @@ An example quest data is provided below.
 
 Prompt the user for a name. You can prompt for additional info as well (like an avatar or what kind of adventurer they are).
 
-When the user submits their info, it should be saved. *In addition, you also need to initialize:
+When the user submits their info, it should be saved. **In addition, you also need to initialize**:
 1. Any user properties you need to track, for example `hp` and `gold`
 1. An empty `completed` object that will be used to track which quests the user has completed. 
 
@@ -41,9 +39,9 @@ The user should then be navigated to `map.html`.
 
 This page lists the available quests. It needs the `user`, `quests`, and `completed` data. 
 
-The quests list should be generated from the `quests` data. The user should be able to click on the quest which navigates them to the quest page, included the query string with the id: `quests.html?id=dragon`
+The visual UI quests list should be generated from the `quests` data. The user should be able to click on the quest which navigates them to the quest page, including the id in the query string: `quests.html?id=dragon`
 
-Display user profile information including stats (like hp and gold)
+Display user profile information including stats (like `hp` and `gold`)
 
 This page also needs to check current state of data and adjust itself accordingly:
 1. Check the `completed` object and skip generating a link for any quest the user has already completed.
@@ -52,14 +50,14 @@ This page also needs to check current state of data and adjust itself accordingl
 
 ## Quest Page
 
-This page runs a quest.  It needs the `user`, `quests`, and `completed` data. Find the quest in `quests` data based on the query `id`/
+This page runs a quest.  It needs the `user`, `quests`, and `completed` data. Find the quest in `quests` data by reading the `id` from the query string (use `UrlSearchParams`).
 
-Display user profile information including stats (like hp and gold)
+Display user profile information including stats (like `hp` and `gold`)
 
 Populate the display in `quest.html` based on the properties of the quest. Loop through the `quest.choices` and create the form controls for each choice (use the choice `id` as the `input` `value`).
 
-When the user submits their choice, find the corresponding choice in `quest.choices`. Update the display with result, change the user object according to the selected `choice`,
-and (re)save (you might want to reload the user profile info as well). The `completed` object needs to be updated by setting a property whose key is the `quest.id` and whose value is `true`
+When the user submits their choice, use the selected value to find the corresponding choice in `quest.choices`. Update the display with result, change the user object according to the selected `choice`,
+and (re)save (you might want to reload the user profile info as well). The `completed` object needs to be updated by setting a property whose key is the quest id and whose value is `true`: `completed[quest.id] = true;`
 
 ## End Page
 
